@@ -1,0 +1,27 @@
+{
+    "manifest_version": 3,
+    "name": "TabStacker",
+    "version": "1.0",
+    "description": "Guarda y gestiona grupos de pestañas para abrirlas más tarde.",
+    "permissions": [
+      "tabs",
+      "storage"
+    ],
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+      }
+    },
+    "icons": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    },
+    "background": {
+      "service_worker": "background.js"
+    }
+  }
+  

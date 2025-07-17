@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TabStacker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* styles.css */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* bg-gray-100 */
+            padding: 16px; /* p-4 */
+            width: 320px; /* w-80 */
+
+        }
+
+        h1 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 700; /* font-bold */
+            color: #1f2937; /* text-gray-800 */
+            margin-bottom: 16px; /* mb-4 */
+            text-align: center;
+        }
+
+        #message-box {
+            display: none; /* hidden */
+            background-color: #d1fae5; /* bg-green-100 */
+            border: 1px solid #34d399; /* border border-green-400 */
+            color: #065f46; /* text-green-700 */
+            padding: 12px 16px; /* px-4 py-3 */
+            border-radius: 8px; /* rounded-lg */
+            position: relative;
+            margin-bottom: 16px; /* mb-4 */
+        }
+
+        #message-box.error {
+            background-color: #fee2e2; /* bg-red-100 */
+            border-color: #ef4444; /* border-red-400 */
+            color: #b91c1c; /* text-red-700 */
+        }
+
+        #message-text {
+            display: block; /* block sm:inline */
+        }
+
+        .close-message-btn { /* Changed from #message-box span:last-child */
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            padding: 12px 16px;
+            cursor: pointer;
+        }
+
+        #message-box svg {
+            fill: currentColor;
+            height: 24px; /* h-6 */
+            width: 24px; /* w-6 */
+            color: #10b981; /* text-green-500 */
+        }
+
+        #message-box.error svg {
+            color: #dc2626; /* text-red-500 */
+        }
+
+        button {
+            width: 100%; /* w-full */
+            font-weight: 600; /* font-semibold */
+            padding: 8px 16px; /* py-2 px-4 */
+            border-radius: 8px; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            transition: all 0.3s ease-in-out; /* transition duration-300 ease-in-out */
+            transform: scale(1); /* transform hover:scale-105 (initial state) */
+            outline: none; /* focus:outline-none */
+            margin-bottom: 12px; /* mb-3 */
+            border: none; /* Ensure no default button border */
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        button:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 */
+        }
+
+        #saveTabsBtn {
+            background-color: #2563eb; /* bg-blue-600 */
+            color: white;
+        }
+
+        #saveTabsBtn:hover {
+            background-color: #1d4ed8; /* hover:bg-blue-700 */
+        }
+
+        #manageTabsBtn {
+            background-color: #4b5563; /* bg-gray-600 */
+            color: white;
+            margin-bottom: 0; /* No margin-bottom for the last button */
+        }
+
+        #manageTabsBtn:hover {
+            background-color: #374151; /* hover:bg-gray-700 */
+        }
+
+        #manageTabsBtn:focus {
+            box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.5); /* focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75 */
+        }
+
+        .brand {
+            align-items: center;
+            text-align: center;
+        }
+        .logo-popup {
+            width: auto;
+            height: 30px;
+            x: 0
+        }
+    </style>
+</head>
+<body>
+    <div class="brand">
+    <img src="icon.png" class="logo-popup">
+    <h1>TabStacker</h1>
+</div>
+
+    <div id="message-box" role="alert">
+        <span id="message-text"></span>
+        <span class="close-message-btn">
+            <svg role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Cerrar</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+        </span>
+    </div>
+
+    <button id="saveTabsBtn">
+        <svg class="icon"  xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M320-320h480v-480h-80v280l-100-60-100 60v-280H320v480Zm0 80q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm360-720h200-200Zm-200 0h480-480Z"/></svg>
+        Guardar Pestañas Actuales
+    </button>
+
+    <button id="manageTabsBtn">
+        <svg class="icon"  xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M160-80v-560q0-33 23.5-56.5T240-720h320q33 0 56.5 23.5T640-640v560L400-200 160-80Zm80-121 160-86 160 86v-439H240v439Zm480-39v-560H280v-80h440q33 0 56.5 23.5T800-800v560h-80ZM240-640h320-320Z"/></svg>
+        Gestionar Grupos de Pestañas
+    </button>
+
+    <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+/* styles.css */
+
+/* Custom font import for Inter */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Basic styling for buttons to ensure consistent look */
+button {
+    cursor: pointer;
+    outline: none;
+}
+
+/* Ensure messages are readable */
+#message-box {
+    z-index: 1000; /* Ensure it's on top */
+}

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TabStacker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* bg-gray-100 */
+            min-height: 100vh;
+            padding: 24px; /* p-6 */
+        }
+
+        .container {
+            max-width: 896px; /* max-w-4xl */
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #ffffff; /* bg-white */
+            border-radius: 8px; /* rounded-lg */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+            padding: 32px; /* p-8 */
+        }
+
+        h1 {
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700; /* font-bold */
+            color: #1f2937; /* text-gray-800 */
+            margin-bottom: 24px; /* mb-6 */
+            text-align: center;
+        }
+
+        #message-box {
+            display: none; /* hidden */
+            background-color: #d1fae5; /* bg-green-100 */
+            border: 1px solid #34d399; /* border border-green-400 */
+            color: #065f46; /* text-green-700 */
+            padding: 12px 16px; /* px-4 py-3 */
+            border-radius: 8px; /* rounded-lg */
+            position: relative;
+            margin-bottom: 16px; /* mb-4 */
+        }
+
+        #message-box.error {
+            background-color: #fee2e2; /* bg-red-100 */
+            border-color: #ef4444; /* border-red-400 */
+            color: #b91c1c; /* text-red-700 */
+        }
+
+        #message-text {
+            display: block; /* block sm:inline */
+        }
+
+        .close-message-btn { /* Changed from #message-box span:last-child */
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            padding: 12px 16px;
+            cursor: pointer;
+        }
+
+        #message-box svg {
+            fill: currentColor;
+            height: 24px; /* h-6 */
+            width: 24px; /* w-6 */
+            color: #10b981; /* text-green-500 */
+        }
+
+        #message-box.error svg {
+            color: #dc2626; /* text-red-500 */
+        }
+
+        #search-container {
+            margin-bottom: 24px;
+            display: flex;
+            gap: 8px;
+        }
+
+        #search-input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 1px solid #d1d5db; /* border-gray-300 */
+            border-radius: 8px; /* rounded-lg */
+            font-size: 1rem;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+            outline: none;
+        }
+
+        #search-input:focus {
+            border-color: #3b82f6; /* border-blue-500 */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); /* ring-2 ring-blue-500 ring-opacity-20 */
+        }
+
+
+        #tabGroupsContainer > div {
+            margin-bottom: 24px; /* space-y-6 */
+        }
+
+        .group-card {
+            background-color: #f9fafb; /* bg-gray-50 */
+            border: 1px solid #e5e7eb; /* border border-gray-200 */
+            border-radius: 8px; /* rounded-lg */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+            padding: 20px; /* p-5 */
+        }
+
+        .group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px; /* mb-3 */
+        }
+
+        .group-header h2 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            color: #374151; /* text-gray-700 */
+        }
+
+        .group-buttons {
+            display: flex;
+            gap: 8px; /* space-x-2 */
+        }
+
+        .group-buttons button {
+            color: white;
+            padding: 8px 16px; /* px-4 py-2 */
+            border-radius: 6px; /* rounded-md */
+            transition: all 0.2s ease-in-out; /* transition duration-200 ease-in-out */
+            transform: scale(1); /* transform hover:scale-105 (initial state) */
+            outline: none;
+            border: none; /* Ensure no default button border */
+        }
+
+        .group-buttons button:hover {
+            transform: scale(1.05);
+        }
+
+        .open-all-btn {
+            background-color: #3b82f6; /* bg-blue-500 */
+        }
+
+        .open-all-btn:hover {
+            background-color: #2563eb; /* hover:bg-blue-600 */
+        }
+
+        .delete-group-btn {
+            background-color: #ef4444; /* bg-red-500 */
+        }
+
+        .delete-group-btn:hover {
+            background-color: #dc2626; /* hover:bg-red-600 */
+        }
+
+        .group-timestamp {
+            font-size: 0.875rem; /* text-sm */
+            color: #6b7280; /* text-gray-500 */
+            margin-bottom: 16px; /* mb-4 */
+        }
+
+        .tab-list {
+            max-height: 240px; /* max-h-60 */
+            overflow-y: auto;
+            border: 1px solid #e5e7eb; /* border border-gray-200 */
+            border-radius: 6px; /* rounded-md */
+            padding: 12px; /* p-3 */
+            background-color: #ffffff; /* bg-white */
+        }
+
+        .tab-list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 8px; /* py-2 */
+            padding-bottom: 8px; /* py-2 */
+            border-bottom: 1px solid #f3f4f6; /* border-b border-gray-100 */
+        }
+
+        .tab-list-item:last-child {
+            border-bottom: 0; /* last:border-b-0 */
+        }
+
+        .tab-list-item a {
+            color: #2563eb; /* text-blue-600 */
+            text-decoration: none;
+            flex-grow: 1; /* flex-grow */
+            margin-right: 8px; /* mr-2 */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* truncate */
+        }
+
+        .tab-list-item a:hover {
+            text-decoration: underline;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 8px; /* space-x-2 */
+        }
+
+        .tab-buttons button {
+            color: white;
+            padding: 4px 12px; /* px-3 py-1 */
+            font-size: 0.875rem; /* text-sm */
+            border-radius: 6px; /* rounded-md */
+            transition: all 0.2s ease-in-out;
+            transform: scale(1);
+            outline: none;
+            border: none; /* Ensure no default button border */
+        }
+
+        .tab-buttons button:hover {
+            transform: scale(1.05);
+        }
+
+        .open-tab-btn {
+            background-color: #22c55e; /* bg-green-500 */
+        }
+
+        .open-tab-btn:hover {
+            background-color: #16a34a; /* hover:bg-green-600 */
+        }
+
+        .delete-tab-btn {
+            background-color: #f59e0b; /* bg-yellow-500 */
+        }
+
+        .delete-tab-btn:hover {
+            background-color: #d97706; /* hover:bg-yellow-600 */
+        }
+
+        #noGroupsMessage {
+            text-align: center;
+            color: #6b7280; /* text-gray-500 */
+            font-size: 1.125rem; /* text-lg */
+            /* display handled by JS */
+        }
+
+        /* Custom scrollbar for better aesthetics */
+        .overflow-y-auto::-webkit-scrollbar {
+            width: 8px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .brand {
+            align-items: center;
+            text-align: center;
+        }
+        .logo-popup {
+            width: auto;
+            height: 30px;
+            x: 0
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="brand">
+            <img src="icon.png" class="logo-popup">
+            <h1>TabStacker</h1>
+        </div>
+        <div style="height: 1px; background-color: #555;"></div>
+        <h1>Gestionar Grupos de Pestañas</h1>
+
+        <div id="message-box" role="alert">
+            <span id="message-text"></span>
+            <span class="close-message-btn">
+                <svg role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Cerrar</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+            </span>
+        </div>
+
+        <div id="search-container">
+            <input type="text" id="search-input" placeholder="Buscar grupos o pestañas...">
+        </div>
+
+        <div id="tabGroupsContainer">
+            <!-- Tab groups will be loaded here by JavaScript -->
+            <p id="noGroupsMessage">No hay grupos de pestañas guardados aún.</p>
+        </div>
+    </div>
+
+    <script src="management.js"></script>
+</body>
+</html>
