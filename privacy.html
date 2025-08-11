@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabstacker es privado al 100%</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Fondo base para el efecto glass */
+            min-height: 100vh;
+            padding: 24px; /* p-6 */
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 896px; /* max-w-4xl */
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.2); /* Fondo blanco semi-transparente */
+            backdrop-filter: blur(10px); /* Efecto de desenfoque de vidrio */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Borde sutil */
+            border-radius: 10px; /* Bordes más redondeados */
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Sombra para el efecto de profundidad */
+            padding: 32px; /* p-8 */
+            margin-bottom: 20px; /* Add some space above the footer */
+        }
+
+        h1 {
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700; /* font-bold */
+            color: #1f2937; /* text-gray-800 */
+            margin-bottom: 24px; /* mb-6 */
+            text-align: center;
+        }
+
+
+        /* Custom scrollbar for better aesthetics */
+        .overflow-y-auto::-webkit-scrollbar {
+            width: 8px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .brand {
+            align-items: center;
+            text-align: center;
+        }
+        .logo-popup {
+            width: auto;
+            height: 10vh;
+            x: 0
+        }
+
+        footer {
+            width: 99%; /* Full width */
+            padding: 15px 0; /* Vertical padding */
+            align-items: center;
+            text-align: center;
+            position: relative; /* Changed from fixed to relative to flow with content */
+            bottom: 0;
+            left: 0;
+            background-color: rgba(255, 255, 255, 0.2); /* Fondo blanco semi-transparente */
+            backdrop-filter: blur(10px); /* Efecto de desenfoque de vidrio */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Borde sutil */
+            border-radius: 10px; /* Bordes más redondeados */
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Sombra para el efecto de profundidad */
+            padding: 32px; /* p-8 */
+        }
+
+        footer a {
+            margin: 0 15px; /* Espaciado horizontal entre enlaces */
+            color: #374151; /* Color de texto para los enlaces */
+            text-decoration: none; /* Sin subrayado por defecto */
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: #1f2937; /* Color más oscuro al pasar el ratón */
+            text-decoration: underline; /* Subrayado al pasar el ratón */
+        }
+    </style>
+</head>
+    <div class="container">
+
+    <a href="/management.html" style="text-decoration: none;">
+        <div class="brand">
+            <img src="icon.png" class="logo-popup">
+            <h1>TabStacker</h1>
+        </div>
+    </a>
+
+        <div style="height: 1px; background-color: #555;"></div>
+        <h1>Política de privacidad</h1>
+        <p>Respetamos tu privacidad, por lo que no estamos espiando ni recogiendo datos en ningún momento.</p>
+        <p>Puedes asegurarte, si lo necesitas, visitando nuestra <a href="https://github.com/Inled-Group/tabstacker">repositorio</a> de Github.</p>
+
+    </div>
+</body>
+
+
+<footer>
+<a href="https://help.inled.es/tabstacker">Ayuda</a> <a href="https://inled.es">Inled Group</a> <a href="/privacy.html">Política de privacidad</a>
+</footer>
+</html>
