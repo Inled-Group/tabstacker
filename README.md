@@ -3,7 +3,7 @@
 Gestor de pestañas guardadas  
 
 ## Funcionamiento  
-Pulse en el icono de la extensión en la barar de Chrome.  
+Pulse en el icono de la extensión en la barra de Chrome.  
 Podrá escoger entre guardar el grupo de pestañas o ver las pestañas guardadas.  
 
 ## Pestañas guardadas  
